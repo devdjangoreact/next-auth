@@ -1,6 +1,6 @@
 'use client'
 
-import { signOut } from 'next-auth/react'
+import { signIn } from 'next-auth/react'
 import { FC, useState } from 'react'
 import { Button } from './Button'
 import { toast } from './toast'
@@ -10,18 +10,18 @@ import { toast } from './toast'
  * hence this unreusable component.
  */
 
-interface SignOutButtonProps {}
+interface SignInButtonProps {}
 
-const SignOutButton: FC<SignOutButtonProps> = ({}) => {
+const SignInButton: FC<SignInButtonProps> = ({}) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  const signUserOut = async () => {
+  const signInWithGoogle = async () => {
     try {
       setIsLoading(true)
-      await signOut()
+      await signIn('google')
     } catch (error) {
       toast({
-        title: 'Error signing out',
+        title: 'Error signing in',
         message: 'Please try again later.',
         type: 'error',
       })
@@ -29,10 +29,10 @@ const SignOutButton: FC<SignOutButtonProps> = ({}) => {
   }
 
   return (
-    <Button onClick={signUserOut} isLoading={isLoading}>
-      Sign out
+    <Button onClick={signInWithGoogle} isLoading={isLoading}>
+      Sign in
     </Button>
   )
 }
 
-export default SignOutButton
+export default SignInButton
